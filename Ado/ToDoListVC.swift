@@ -10,11 +10,32 @@ import UIKit
 
 class ToDoListVC: UITableViewController {
     
-    let itemArray = ["Find Mike", "Buy eggs", "Destroy Demogargon"]
+    var itemArray = [String]()
+    
+    let defaults = UserDefaults.standard
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var savedAlertTextField = UITextField()
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            self.itemArray.append(savedAlertTextField.text!)
+            self.tableView.reloadData()
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Enter new item"
+            savedAlertTextField = alertTextField
+        }
+        alert.addAction(action)
+        present(alert, animated: true,  completion: nil)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if let savedItems = defaults.array(forKey: "ToDoListArray") as! [String]? {
+            itemArray = savedItems
+        }
     }
     
     // TableView Datasource
@@ -40,7 +61,6 @@ class ToDoListVC: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
-
 
 
 } // end ToDoListVC
