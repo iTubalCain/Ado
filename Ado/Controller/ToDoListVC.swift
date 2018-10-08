@@ -10,11 +10,34 @@ import UIKit
 
 class ToDoListVC: UITableViewController {
     
+    let TODO_ITEM_CELL_ID        = "ToDoItemCell"
     let TODO_LIST_ARRAY_KEY = "ToDoListArray"
+    let TODO_SAVED                      = "ToDoItemsBackup.plist"
 
-    let defaults = UserDefaults.standard
+    // let defaults = UserDefaults.standard
+    let dataPathURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("ToDoItemsBackup.plist")
 
     var itemArray = [ToDoItem]()
+    
+    private func loadItems() {
+        // let savedItems = defaults.array(forKey: TODO_LIST_ARRAY_KEY) as? [ToDoItem]
+        do {
+            if let data = try? Data(contentsOf: dataPathURL!) {
+                itemArray = try PropertyListDecoder().decode([ToDoItem].self, from: data)
+            }
+        } catch {
+            print("Failed to read itemArray: ", error)
+        }
+    }
+    private func saveItems() {
+        // self.defaults.set(self.itemArray, forKey: self.TODO_LIST_ARRAY_KEY)
+        do {
+            let data = try PropertyListEncoder().encode(itemArray)
+            try data.write(to: dataPathURL!)
+        } catch {
+            print("Failed to write itemArray: ", error)
+        }
+    }
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var savedAlertTextField = UITextField()
@@ -23,8 +46,7 @@ class ToDoListVC: UITableViewController {
             let item = ToDoItem()                   // item.done defaults to false
             item.title = savedAlertTextField.text!
             self.itemArray.append(item)
-            self.defaults.set(self.itemArray, forKey: self.TODO_LIST_ARRAY_KEY)
-            #warning("Attempt to set non-property-list object 'Ado.Item'")
+            self.saveItems()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -40,9 +62,11 @@ class ToDoListVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let savedItems = defaults.array(forKey: TODO_LIST_ARRAY_KEY) as? [ToDoItem]  {
-            itemArray = savedItems
-        }
+        loadItems()
+        //  print("dataPath: ", dataPathURL!)
+        // if let savedItems = defaults.array(forKey: TODO_LIST_ARRAY_KEY) as? [ToDoItem]  {
+       //    itemArray = savedItems
+      // }
     }
     
     // TableView Datasource
@@ -52,7 +76,7 @@ class ToDoListVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: TODO_ITEM_CELL_ID, for: indexPath)
         cell.textLabel?.text = itemArray[indexPath.item].title
         cell.accessoryType = itemArray[indexPath.item].done ? .checkmark : .none
         return cell
@@ -63,7 +87,8 @@ class ToDoListVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.item].done = !itemArray[indexPath.item].done
         tableView.deselectRow(at: indexPath, animated: true)
-        tableView.reloadData()
+        self.saveItems()
+         tableView.reloadData()
     }
 
 
