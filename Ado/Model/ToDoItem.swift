@@ -6,9 +6,9 @@
 //  Copyright © 2018 Milliwaze Software. All rights reserved.
 //
 
-import Foundation
-
-class ToDoItem: Codable  {      // En- and De- codable
-    var title   : String  = ""
-    var done : Bool    = false
-}
+//import Foundation
+//
+//class ToDoItem: Codable  {      // En- and De- codable
+//    var title   : String  = ""
+//    var done : Bool    = false
+//}
