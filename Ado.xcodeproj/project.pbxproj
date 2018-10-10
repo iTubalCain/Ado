@@ -15,9 +15,12 @@
 		BE687ED0216AFF71000E87D4 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE687ECF216AFF71000E87D4 /* ToDoItem.swift */; };
 		BE687ED5216B48F4000E87D4 /* ToDoModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BE687ED3216B48F4000E87D4 /* ToDoModel.xcdatamodeld */; };
 		BE78734B216C372F002C0545 /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE78734A216C372F002C0545 /* CategoryVC.swift */; };
+		DA606E5EA731A1186A4AE206 /* Pods_Ado.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71E0373C2F15D0C1897C2969 /* Pods_Ado.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		71E0373C2F15D0C1897C2969 /* Pods_Ado.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ado.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E3A013ECF92913EFA97EE29 /* Pods-Ado.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ado.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ado/Pods-Ado.release.xcconfig"; sourceTree = "<group>"; };
 		BE681B07216A1D64006DF0B6 /* Ado.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ado.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE681B0A216A1D64006DF0B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE681B0C216A1D64006DF0B6 /* ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListVC.swift; sourceTree = "<group>"; };
@@ -28,6 +31,7 @@
 		BE687ECF216AFF71000E87D4 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		BE687ED4216B48F4000E87D4 /* ToDoModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoModel.xcdatamodel; sourceTree = "<group>"; };
 		BE78734A216C372F002C0545 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
+		DDB8675432DA0A1B77E6CA84 /* Pods-Ado.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ado.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ado/Pods-Ado.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA606E5EA731A1186A4AE206 /* Pods_Ado.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23A800D64315E22F6BCB00A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DDB8675432DA0A1B77E6CA84 /* Pods-Ado.debug.xcconfig */,
+				7E3A013ECF92913EFA97EE29 /* Pods-Ado.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2A5CAF8A266B6C3A1D03E5EF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71E0373C2F15D0C1897C2969 /* Pods_Ado.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BE681AFE216A1D64006DF0B6 = {
 			isa = PBXGroup;
 			children = (
 				BE681B09216A1D64006DF0B6 /* Ado */,
 				BE681B08216A1D64006DF0B6 /* Products */,
+				23A800D64315E22F6BCB00A2 /* Pods */,
+				2A5CAF8A266B6C3A1D03E5EF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,9 +128,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE681B19216A1D68006DF0B6 /* Build configuration list for PBXNativeTarget "Ado" */;
 			buildPhases = (
+				344CADF8D66D4321DD6F025E /* [CP] Check Pods Manifest.lock */,
 				BE681B03216A1D64006DF0B6 /* Sources */,
 				BE681B04216A1D64006DF0B6 /* Frameworks */,
 				BE681B05216A1D64006DF0B6 /* Resources */,
+				F76E8DD18C77E7E2C2F3ABAC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -162,6 +188,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		344CADF8D66D4321DD6F025E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Ado-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F76E8DD18C77E7E2C2F3ABAC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Ado/Pods-Ado-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ado/Pods-Ado-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BE681B03216A1D64006DF0B6 /* Sources */ = {
@@ -316,6 +389,7 @@
 		};
 		BE681B1A216A1D68006DF0B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDB8675432DA0A1B77E6CA84 /* Pods-Ado.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -334,6 +408,7 @@
 		};
 		BE681B1B216A1D68006DF0B6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E3A013ECF92913EFA97EE29 /* Pods-Ado.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Milliwaze Software. All rights reserved.
 //
 
+import ChameleonFramework
 import CoreData
 import UIKit
 
@@ -15,8 +16,11 @@ class CategoryVC: UITableViewController {
         var savedAlertTextField = UITextField()
         let alert    = UIAlertController(title: "Add new category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
+            guard let text = savedAlertTextField.text else { return }
+            if text.isEmpty { return }
             let category = Category(context: self.context)
-            category.name  = savedAlertTextField.text!
+            category.name        = text
+            category.cellColor  = UIColor.randomFlat().hexValue()  ?? "1D98F6"
             self.categories.append(category)
             self.saveCategories()
             DispatchQueue.main.async {
@@ -44,8 +48,15 @@ class CategoryVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCategories()
+        tableView.separatorStyle = .none    // so colors go to edges
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        //  navigationController?.navigationBar.barTintColor =  UIColor(hexString: selectedCategory?.cellColor)
+        navigationController?.navigationBar.tintColor = ContrastColorOf(backgroundColor: (navigationController?.navigationBar.barTintColor)!, returnFlat: true) 
+        title = "Categories"
+    }
+
 
     // MARK: - Table view data source
 
@@ -56,7 +67,9 @@ class CategoryVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TODO_CATEGORY_CELL_ID, for: indexPath)
-        cell.textLabel?.text = categories[indexPath.item].name
+        cell.textLabel?.text       = categories[indexPath.item].name
+        cell.backgroundColor = UIColor( hexString: categories[indexPath.item].cellColor)
+        cell.textLabel?.textColor = ContrastColorOf(backgroundColor: UIColor( hexString: categories[indexPath.item].cellColor), returnFlat: true)
         return cell
     }
     

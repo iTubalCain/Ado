@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import ChameleonFramework
 import UIKit
 
 class ToDoListVC: UITableViewController {
@@ -28,6 +29,8 @@ class ToDoListVC: UITableViewController {
         }
     }
     
+    @IBOutlet weak var searchBar: UISearchBar!
+     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var savedAlertTextField = UITextField()
         let alert    = UIAlertController(title: "New item", message: "", preferredStyle: .alert)
@@ -67,6 +70,31 @@ class ToDoListVC: UITableViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.name
+        guard let cellColor = UIColor(hexString: selectedCategory?.cellColor) else { fatalError() }
+        setupNavBar(categoryColor: cellColor)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        setupNavBar(categoryColor: UIColor(hexString: "1D98F6"))
+    }
+    
+    func setupNavBar(categoryColor: UIColor) {
+        guard let navBar = navigationController?.navigationBar else {  fatalError("No NavigationController") }
+        navBar.barTintColor = categoryColor
+        navBar.tintColor = ContrastColorOf(backgroundColor: categoryColor, returnFlat: true)
+        navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(backgroundColor: categoryColor, returnFlat: true)]
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(backgroundColor: categoryColor, returnFlat: true)]
+        searchBar.barTintColor =  categoryColor
+    }
+    
+    
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
+    
+    
     // MARK:- TableView Datasource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,6 +105,10 @@ class ToDoListVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: TODO_ITEM_CELL_ID, for: indexPath)
         cell.textLabel?.text = items[indexPath.item].title
         cell.accessoryType = items[indexPath.item].done ? .checkmark : .none
+        // cell.backgroundColor = UIColor.flatYellow()?.darken(byPercentage: CGFloat(0.05 * Double(indexPath.row)))
+        cell.backgroundColor = UIColor.init(hexString: selectedCategory?.cellColor).darken(byPercentage: CGFloat(0.05 * Double(indexPath.row)))
+        cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: cell.backgroundColor, isFlat: true)
+        // cell.textLabel?.textColor = UIColor(complementaryFlatColorOf: cell.backgroundColor)
         return cell
     }
     
